@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% load static %}
+{% static "images" as baseUrl %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    *{
+    box-sizing:border-box;
+    }
+    body{
+        margin:0;
+        padding:0;
+        font-family: sans-serif;
+        background:gray;
+        }
+        header{
+        position:relative;
+        width: 100%;
+        height:60px;
+        background-color:black;
+        }
+        .head{
+        color:white;
+        font-size:2rem;
+        float:left;
+        font-family:cursive;
+        font-weight:Bold;
+        margin-left:5%;
+        padding:5px;
+        }
+        ul{
+        margin:0;
+        padding:0;
+        list-style:none
+        }
+        nav {
+        float:right;
+        margin-right:
+        }
+        nav li{
+        display: inline;
+        padding: 1rem;
+        color:white;
+        font-family:cursive;
+        }
+        nav li a{
+        width:100px;
+        text-align:center;
+        color:white;
+        font-size:1.5rem;
+        font-family:cursive;
+        padding:20px 5px ;
+        text-decoration: none;
+        }
+
+        nav li a:hover{
+        color:white;
+        border-bottom:2px solid grey;
+        font-size:1.8rem;
+        padding:15px 0;
+        }
+        .con{
+        max-width:1200px;
+        margin:auto;
+        overflow:auto;
+        background:#f2f2f2;
+        font-family:cursive;
+        }
+        .container{
+        margin:10px;
+        border:1px solid #f2f2f2;
+        float:left;
+        width:390px;
+        }
+        .container img{
+        width:100%;
+        height:auto;
+        }
+        .desc{
+        padding:15px;
+        text-align:center;
+        }
+        footer{
+        padding:10px;
+        font-size:17px;
+        font-weight:bold;
+        text-align:center;
+        background-color:black;
+        color:white;
+        width:100%;
+        }
+        a{
+        text-decoration: none;
+        }
+
+        .btn{
+        width: 100%;
+        background:none;
+        border: 2px solid black;
+        color:black;
+        padding:2px;
+        font-size:15px;
+        cursor:pointer;
+        margin:10px 0;
+        border-radius:20px;
+        }
+        .btn:hover{
+        color:white;
+        background-color:black;
+        }
+    </style>
+</head>
+<body>
+<!--Header-->
+    <header>
+    <div class="head">
+        PROVIDENCE
+    </div>
+    <nav>
+        <ul>
+            <li><a href = '/'>Home</a></li>
+            <li><a href = 'contact.html'>Contact</a></li>
+            {% if user.is_authenticated %}
+            <li>Hello, {{user.first_name}}</li>
+            <li><a href = 'accounts/logout'>Logout</a></li>
+            {% else %}
+            <li><a href = 'accounts/login'>Login</a></li>
+            <li><a href = 'accounts/register'>Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    </header>
+{% for prod in prods %}
+<!--section-->
+    <div class="con" >
+        <div class="container">
+            <img src="{{prod.img.url}}"  alt="car">
+            <div class="desc">
+                <div class="box">
+                    {% if user.is_authenticated %}
+                    <div class="prod_name"><a class="btn" href="product.html">{{prod.name}}</a></div>
+                    <div class="prod_des">{{prod.desc}}</div>
+                    <div class="prod_price">{{prod.price}}</div>
+                    {% else %}
+                    <div class="prod_name">{{prod.name}}</div>
+                    <div class="prod_des">{{prod.desc}}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<!--footer-->
+<footer>
+    <p>&copy; 2020, Providence</p>
+</footer>
+</body>
+</html>
